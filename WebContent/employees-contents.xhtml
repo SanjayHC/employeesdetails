@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+ 	  xmlns:p="http://primefaces.org/ui"
+ 	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+      
+      <div align="center">	
+      	<br/>
+		<h:outputText value="Employees list" styleClass="contentsTitle"/>	
+		<h:form>
+	  		<h:dataTable value="#{backingEmployees.findAllEmployees()}" var="employee"
+	    			styleClass="table"
+	    			headerClass="table-header"
+	    			footerClass="table-footer"
+	    			rowClasses="table-odd-row,table-even-row">
+
+	    			<h:column>
+	    				<h:commandLink value="Edit" action="#{backingEmployees.edit(employee)}"/>
+	    				<h:commandButton value="Edit" action="updateemployee"/>
+	    			</h:column>
+	   			
+	    			<h:column>
+	    				<!-- column header -->
+	    				<f:facet name="header">Id</f:facet>
+	    				<!-- row record -->
+	    				#{employee.id}
+	    			</h:column>
+	
+	    			<h:column>
+	    				<f:facet name="header">First name</f:facet>
+	    				#{employee.firstName}
+	    			</h:column>
+	
+	    			<h:column>
+	    				<f:facet name="header">Last name</f:facet>
+	    				#{employee.lastName}
+	    			</h:column>
+	
+	    			<h:column>
+	    				<f:facet name="header">Company</f:facet>
+	    				#{employee.company}
+	    			</h:column>
+	    			
+	    			<h:column>
+	    				<f:facet name="header">Empl. number</f:facet>
+	    				#{employee.emplNumber}
+	    			</h:column>
+	    			
+	    			<h:column>
+	    				<f:facet name="header">Salary</f:facet>
+			            <h:outputText value="#{employee.salary}" >
+			               <f:convertNumber currencySymbol="$" type="currency" />
+			            </h:outputText>    				    				
+	    			</h:column>
+
+	    			<h:column>
+	    				<h:commandLink value="Delete" action="#{backingEmployees.delete(employee)}"/>
+	    			</h:column>
+	    			
+	 			    <f:facet name="footer">
+				        <h:outputText value="Total of employees: #{backingEmployees.findAllEmployees().size()}" />
+				    </f:facet>
+	 
+	    		</h:dataTable>	
+	   		    <br/>
+				<h:commandButton value="Add employee" action="addemployee"/>
+    		</h:form>
+	  </div>
+	 <br/>
+
+</ui:composition>
